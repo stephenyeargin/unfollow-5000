@@ -6,8 +6,8 @@ Removes followers from your Twitter account.
 
 1. Add a new application to your Twitter account (or use an existing one)
 2. Obtain the Authorization Token and Authorization Token Secret. The easiest way to do this is to use the Signature Generator found on documentation pages when signed in.
-3. Clone this repository (`git clone git@github.com:stephenyeargin/unfollower5000.git`) to your computer.
-4. Run `bundle install` within that directory. If you don't have bundler, see [their installation instructions]().
+3. Clone this repository (`git clone git@github.com:stephenyeargin/unfollow-5000.git`) to your computer.
+4. Run `bundle install` within that directory. If you don't have bundler, see [their installation instructions](http://bundler.io/#getting-started).
 5. Copy `.env-dist` to `.env` and update the credentials from Step 2.
 6. Run `rake help` to make sure everything works (you will receive instructions.)
 
