@@ -1,7 +1,6 @@
 ##
 # Unfollower5000
 class Unfollower
-
   @output_file = 'assholes.txt'
 
   @client = Twitter::REST::Client.new do |config|
@@ -13,8 +12,8 @@ class Unfollower
 
   ##
   # Get Assholes
-  def self.get_assholes
-    throw 'There was not a file to load.' unless File.exists?(@output_file)
+  def self.assholes
+    throw 'There was not a file to load.' unless File.exist?(@output_file)
     assholes = []
     File.open(@output_file, 'r') do |io|
       io.each_line do |line|
@@ -26,9 +25,9 @@ class Unfollower
 
   ##
   # Blocks assholes
-  def self.block_assholes(assholes=[], report_spam=true)
+  def self.block_assholes(assholes = [], report_spam = true)
     throw 'Not an array.' if assholes.class != Array
-    for asshole in assholes
+    assholes.each do |asshole|
       puts "Blocking #{asshole} ..."
       @client.report_spam(asshole) if report_spam
       @client.block(asshole)
@@ -40,9 +39,9 @@ class Unfollower
 
   ##
   # Gets your last 100 followers and write them to a file
-  def self.get_follower_list(limit=100)
+  def self.follower_list(limit = 100)
     puts "Getting #{limit} of most recent followers."
-    File.open(@output_file, "w") do |io|
+    File.open(@output_file, 'w') do |io|
       @client.followers.take(limit).each do |follower|
         puts follower.screen_name
         io.write "#{follower.screen_name}\n"
