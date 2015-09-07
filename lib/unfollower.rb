@@ -25,28 +25,50 @@ class Unfollower
 
   ##
   # Blocks assholes
-  def self.block_assholes(assholes = [], report_spam = true)
+  def self.block(assholes = [], report_spam = true)
     throw 'Not an array.' if assholes.class != Array
     assholes.each do |asshole|
       puts "Blocking #{asshole} ..."
       @client.report_spam(asshole) if report_spam
       @client.block(asshole)
-      sleep(3)
+      sleep(2)
     end
   rescue StandardError => e
     puts e
   end
 
   ##
-  # Gets your last 100 followers and write them to a file
-  def self.follower_list(limit = 100)
+  # Gets your last X followers and write them to a file
+  def self.followers(limit = 100)
     puts "Getting #{limit} of most recent followers."
     File.open(@output_file, 'w') do |io|
-      @client.followers.take(limit).each do |follower|
-        puts follower.screen_name
-        io.write "#{follower.screen_name}\n"
+      @client.followers.take(limit).each do |f|
+        if f.following?
+          puts "[Skipping #{f.screen_name}]"
+          next
+        end
+        puts "#{f.screen_name}"
+        puts "\tCreated #{f.created_at} :: #{f.description} :: #{f.website}"
+        io.write "#{f.screen_name}\n"
         sleep(1)
       end
     end
+  rescue StandardError => e
+    puts e
+  end
+
+  ##
+  # Generate Block List
+  def self.blocked
+    puts 'Writing block list to text file.'
+    File.open(@output_file, 'w') do |io|
+      @client.blocked.each do |b|
+        puts b.screen_name
+        io.write "#{b.screen_name}\n"
+        sleep(1)
+      end
+    end
+  rescue StandardError => e
+    puts e
   end
 end

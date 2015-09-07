@@ -13,11 +13,11 @@ Removes followers from your Twitter account.
 
 ## Usage
 
-### `rake followers` or `rake followers[25]`
+### `rake followers`
 
-This generates a file called `assholes.txt` of your latest followers, depending on the number provided. Defaults to 100.
+This generates a file called `assholes.txt` of your latest followers, depending on the number provided. It will automatically skip users you are following.
 
-**Important:** After this file is created, edit and save it, removing legitimate followers. If you skip this step, you will block/report your friends. :flushed:
+**Important:** After this file is created, edit and save it, removing legitimate followers. If you skip this step, you will block/report real followers. :flushed:
 
 ### `rake spam`
 
@@ -27,46 +27,6 @@ This will take the contents of `assholes.txt` and report each of them for spam. 
 
 Same as `rake spam` but it skips the "Report for Spam" API endpoint. There does not appear to be a limit to the number of followers (or non-followers) you can block through this method.
 
-## In Action
+### `rake blocked`
 
-```
-$ rake followers[18]
-Getting 18 of most recent followers.
-OversizeFollow
-JumpYourViews
-CustomWoodBoard
-VideoBlastss
-RankMonsters
-ZippityBlast
-BeranJerry
-BigNameSEO
-NeverDropping
-DazzlingTraffic
-ExtremeViewss
-BuildFollow
-MusicCloudPromo
-QueenBeeFollow
-ShoutOutPross
-50kBlast
-BraceletMeteor
-FabFollowerss
-$ rake spam
-Blocking OversizeFollow ...
-Blocking JumpYourViews ...
-Blocking CustomWoodBoard ...
-Blocking VideoBlastss ...
-Blocking RankMonsters ...
-Blocking ZippityBlast ...
-Blocking BeranJerry ...
-Blocking BigNameSEO ...
-Blocking NeverDropping ...
-Blocking DazzlingTraffic ...
-Blocking ExtremeViewss ...
-Blocking BuildFollow ...
-Blocking MusicCloudPromo ...
-Blocking QueenBeeFollow ...
-Blocking ShoutOutPross ...
-Blocking 50kBlast ...
-Blocking BraceletMeteor ...
-Blocking FabFollowerss ...
-```
+Saves the list of blocked users to `assholes.txt` so you can use it in other accounts or share it with somebody who needs it.
