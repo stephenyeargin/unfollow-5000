@@ -29,8 +29,11 @@ class Unfollower
     throw 'Not an array.' if assholes.class != Array
     assholes.each do |asshole|
       puts "Blocking #{asshole} ..."
-      @client.report_spam(asshole) if report_spam
-      @client.block(asshole)
+      if report_spam
+        @client.report_spam(asshole)
+      else
+        @client.block(asshole)
+      end
       sleep(2)
     end
   rescue StandardError => e
@@ -50,7 +53,6 @@ class Unfollower
         puts "#{f.screen_name}"
         puts "\tCreated #{f.created_at} :: #{f.description} :: #{f.website}"
         io.write "#{f.screen_name}\n"
-        sleep(1)
       end
     end
   rescue StandardError => e
