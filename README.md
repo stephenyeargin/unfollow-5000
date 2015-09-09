@@ -9,7 +9,7 @@ Removes followers from your Twitter account.
 3. Clone this repository (`git clone git@github.com:stephenyeargin/unfollow-5000.git`) to your computer.
 4. Run `bundle install` within that directory. If you don't have bundler, see [their installation instructions](http://bundler.io/#getting-started).
 5. Copy `.env-dist` to `.env` and update the credentials from Step 2.
-6. Run `rake help` to make sure everything works (you will receive instructions.)
+6. Run `rake` to make sure everything works (you will receive the available tasks.)
 
 ## Usage
 
