@@ -59,12 +59,18 @@ class Unfollower
 
   ##
   # Generate Block List
-  def self.blocked
+  def self.blocked(format = 'screenname')
     puts 'Writing block list to text file.'
     File.open(@output_file, 'w') do |io|
       @client.blocked.each do |b|
-        puts b.screen_name
-        io.write "#{b.screen_name}\n"
+        case format.downcase
+        when 'id', 'number'
+          output = b.id
+        else
+          output = b.screen_name
+        end
+        puts output
+        io.write "#{output}\n"
         sleep(1)
       end
     end

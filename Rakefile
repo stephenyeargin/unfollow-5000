@@ -15,21 +15,17 @@ load 'lib/unfollower.rb'
 
 directory 'tasks'
 
-task default: %w(help)
-
-task :help do
-  puts ''
-  puts '- `rake followers` -- write latest followers to a text file.'
-  puts '- `rake spam` -- blocks/reports for spam users in that text file.'
-  puts '- `rake block` -- blocks the users in that text file.'
-  puts '- `rake blocked` -- export entire blocked list to text file.'
-  puts ''
-  puts 'Usage: rake <followers, spam, block>'
+task :default do
+  system 'rake -sT'
 end
 
-task :followers do
-  puts 'How many recent followers to retrieve? (1-100)'
-  count = $stdin.gets.chomp.to_i
+desc 'Retrieve list of followers to text file; optional [count]'
+task :followers, :count do |_t, args|
+  count = args[:count].to_i || 0
+  if count == 0
+    puts 'How many recent followers to retrieve? (1-100)'
+    count = $stdin.gets.chomp.to_i
+  end
   if count > 0
     Unfollower.followers(count)
   else
@@ -37,6 +33,7 @@ task :followers do
   end
 end
 
+desc 'Block/report users in text file'
 task :spam do
   assholes = Unfollower.assholes
   puts 'You will report the following users for spam and block them:'
@@ -47,6 +44,7 @@ task :spam do
   Unfollower.block(assholes, true) if $stdin.gets.chomp.downcase == 'y'
 end
 
+desc 'Block users in text file'
 task :block do
   assholes = Unfollower.assholes
   puts 'You will block the following users:'
@@ -57,6 +55,7 @@ task :block do
   Unfollower.block(assholes, false) if $stdin.gets.chomp.downcase == 'y'
 end
 
-task :blocked do
-  Unfollower.blocked
+desc 'Generate a block list [screenname|id]'
+task :blocked, :format do |_t, args|
+  Unfollower.blocked(args[:format])
 end

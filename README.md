@@ -13,9 +13,11 @@ Removes followers from your Twitter account.
 
 ## Usage
 
-### `rake followers`
+### `rake followers[count]`
 
 This generates a file called `assholes.txt` of your latest followers, depending on the number provided. It will automatically skip users you are following.
+
+- `count` - Allows you to specify a count of followers. Will prompt if omitted.
 
 **Important:** After this file is created, edit and save it, removing legitimate followers. If you skip this step, you will block/report real followers. :flushed:
 
@@ -27,6 +29,26 @@ This will take the contents of `assholes.txt` and report each of them for spam. 
 
 Same as `rake spam` but it skips the "Report for Spam" API endpoint. There does not appear to be a limit to the number of followers (or non-followers) you can block through this method.
 
-### `rake blocked`
+### `rake blocked[format]`
 
 Saves the list of blocked users to `assholes.txt` so you can use it in other accounts or share it with somebody who needs it.
+
+- `screenname` (default) - Create a list of screen names
+- `id` - Creates a list of user IDs
+
+## In Action
+
+```bash
+$ rake followers[1]
+Getting 1 of most recent followers.
+79Andronikov
+	Created 2015-08-19 01:47:11 -0500 ::  :: 
+$ rake spam
+You will report the following users for spam and block them:
+
+79Andronikov
+
+Proceed? [yN]
+y
+Blocking 79Andronikov ...
+```
