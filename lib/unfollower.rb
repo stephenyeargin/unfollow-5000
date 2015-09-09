@@ -50,7 +50,6 @@ class Unfollower
         puts "#{f.screen_name}"
         puts "\tCreated #{f.created_at} :: #{f.description} :: #{f.website}"
         io.write "#{f.screen_name}\n"
-        sleep(1)
       end
     end
   rescue StandardError => e
