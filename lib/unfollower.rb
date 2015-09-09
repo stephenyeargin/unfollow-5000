@@ -29,8 +29,11 @@ class Unfollower
     throw 'Not an array.' if assholes.class != Array
     assholes.each do |asshole|
       puts "Blocking #{asshole} ..."
-      @client.report_spam(asshole) if report_spam
-      @client.block(asshole)
+      if report_spam
+        @client.report_spam(asshole)
+      else
+        @client.block(asshole)
+      end
       sleep(2)
     end
   rescue StandardError => e
