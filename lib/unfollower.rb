@@ -34,7 +34,6 @@ class Unfollower
       else
         @client.block(asshole)
       end
-      sleep(2)
     end
   rescue StandardError => e
     puts e
@@ -73,7 +72,6 @@ class Unfollower
         end
         puts output
         io.write "#{output}\n"
-        sleep(1)
       end
     end
   rescue StandardError => e
