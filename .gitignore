@@ -1,2 +1,5 @@
 .env
 assholes.txt
+vendor/*
+.bundle/
+.ruby-version
